@@ -26,7 +26,7 @@ Q_TABLE_LOAD_PATH = 'learned_q_table.pkl'
 MIN_GREEN_TIME = 10
 YELLOW_TIME = 3
 
-vehicle_bins = [5, 15, 30]
+vehicle_bins = [10, 20, 30]
 
 def discretize(value, bins):
     for i, threshold in enumerate(bins):
@@ -141,6 +141,7 @@ def run_simulation_executor():
                 if state is not None:
                     q_values = q_table[state]
                     chosen_action = np.argmax(q_values)
+                    print(f"Time: {current_time:.1f}, State: {state}, Q-Vals: {q_values}, Chosen Action: {chosen_action}")
                     target_green_phase = action_to_green_phase[chosen_action]
 
                     if current_sumo_phase != target_green_phase:

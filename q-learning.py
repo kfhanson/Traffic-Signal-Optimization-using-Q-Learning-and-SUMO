@@ -8,7 +8,7 @@ ALPHA = 0.1      # Learning rate
 ALPHA_DECAY_RATE = 0.99  # Decay factor per epoch (e.g., 1% decay)
 MIN_ALPHA = 0.01         # Minimum learning rate to ensure learning doesn't stop
 GAMMA = 0.9              # Discount factor (keep as is or tune)
-NUM_EPOCHS = 50  # Number of passes through the dataset
+NUM_EPOCHS = 100  # Number of passes through the dataset
 Q_TABLE_SAVE_PATH = 'learned_q_table.pkl'
 
 # Actions correspond to the 'Traffic Signal Phase' column (0 or 1)
@@ -16,7 +16,7 @@ num_actions = 2 # Phases 0 and 1 observed in the data
 
 # State Discretization Bins (Example - NEEDS TUNING based on data distribution)
 # Using vehicle counts here as they seem more direct than avg wait time in the static data
-vehicle_bins = [5, 15, 30]  # Bins: <5, 5-14, 15-29, >=30 -> Levels 0, 1, 2, 3
+vehicle_bins = [10, 20, 30]  # Bins: <5, 5-14, 15-29, >=30 -> Levels 0, 1, 2, 3
 # avg_wait_bins = [30, 60, 90] # Bins: <30, 30-59, 60-89, >=90 -> Levels 0, 1, 2, 3
 
 def discretize(value, bins):
