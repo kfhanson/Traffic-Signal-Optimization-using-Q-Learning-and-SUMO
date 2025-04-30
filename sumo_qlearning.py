@@ -26,7 +26,7 @@ Q_TABLE_LOAD_PATH = 'learned_q_table.pkl'
 MIN_GREEN_TIME = 10
 YELLOW_TIME = 3
 
-vehicle_bins = [10, 20, 30]
+avg_wait_bins = [30, 60, 90]
 
 def discretize(value, bins):
     for i, threshold in enumerate(bins):
@@ -43,16 +43,16 @@ approach_edges = {
 
 def get_state_from_traci(tls_id):
     try:
-        north_count = traci.edge.getLastStepHaltingNumber(approach_edges["north"])
-        south_count = traci.edge.getLastStepHaltingNumber(approach_edges["south"])
-        east_count  = traci.edge.getLastStepHaltingNumber(approach_edges["east"])
-        west_count  = traci.edge.getLastStepHaltingNumber(approach_edges["west"])
+        north_wait = traci.edge.getWaitingTime(approach_edges["north"])
+        south_wait = traci.edge.getWaitingTime(approach_edges["south"])
+        east_wait  = traci.edge.getWaitingTime(approach_edges["east"])
+        west_wait  = traci.edge.getWaitingTime(approach_edges["west"])
 
         state_tuple = (
-            discretize(north_count, vehicle_bins),
-            discretize(south_count, vehicle_bins),
-            discretize(east_count, vehicle_bins),
-            discretize(west_count, vehicle_bins),
+            discretize(north_wait, avg_wait_bins),
+            discretize(south_wait, avg_wait_bins),
+            discretize(east_wait, avg_wait_bins),
+            discretize(west_wait, avg_wait_bins),
         )
         return state_tuple
     except traci.exceptions.TraCIException as e:
